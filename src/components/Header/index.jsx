@@ -3,8 +3,8 @@ import logo from "../../assets/logo.jpg";
 import { useSelector } from "react-redux";
 import { CartModal } from "../Cart-Modal";
 export const Header = () => {
-  const cartItems = useSelector((state) => state.items);
-  const cartItemsCount = useSelector(state=>state.count)
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartItemsCount = useSelector(state=>state.cart.count)
   const modalRef = useRef();
   const handleClose = () => {
     modalRef.current.closeModal()

@@ -6,9 +6,10 @@ import FormField from "../Checkout-Field";
 import { postOrder } from "../../http";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@mui/material";
+import { resetCart } from "../../store/cartSlice";
 
 const CheckoutModal = forwardRef((props, ref) => {
-  const items = useSelector((state) => state.items);
+  const items = useSelector((state) => state.cart.items);
   const [orderMessage, setOrderMessage] = useState("");
   const [orderStatus, setOrderStatus] = useState();
   const [showAlert, setShowAlert] = useState(false);
@@ -35,7 +36,7 @@ const CheckoutModal = forwardRef((props, ref) => {
     setTimeout(() => {
       setShowAlert(false);
     }, 5000);
-    dispatch({ type: "resetCart" });
+    dispatch(resetCart());
   };
 
   const validationSchema = Yup.object({

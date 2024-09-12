@@ -2,18 +2,16 @@ import React, { forwardRef, Fragment, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutModal from "../Checkout-Modal";
+import { addToCart, removeFromCart } from "../../store/cartSlice";
 
-export const CartModal = forwardRef(function CartModal(
-  { cartItems },
-  ref
-) {
+export const CartModal = forwardRef(function CartModal({ cartItems }, ref) {
   const dispatch = useDispatch();
-  const totalPrice = useSelector((state) => state.totalPrice);
-  const checkoutModalRef=useRef()
-  const handleCheckout=()=>{
-    ref.current.close()
-    checkoutModalRef.current.showModal()
-  }
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const checkoutModalRef = useRef();
+  const handleCheckout = () => {
+    ref.current.close();
+    checkoutModalRef.current.showModal();
+  };
   return createPortal(
     <Fragment>
       <dialog ref={ref} className="modal">
@@ -31,7 +29,7 @@ export const CartModal = forwardRef(function CartModal(
                       <button
                         type="button"
                         onClick={() =>
-                          dispatch({ type: "removeFromCart", itemId: item.id })
+                          dispatch(removeFromCart({ itemId: item.id }))
                         }
                       >
                         -
@@ -39,9 +37,7 @@ export const CartModal = forwardRef(function CartModal(
                       <span>{item.quantity}</span>
                       <button
                         type="button"
-                        onClick={() =>
-                          dispatch({ type: "addToCart", item: item })
-                        }
+                        onClick={() => dispatch(addToCart(item))}
                       >
                         +
                       </button>
@@ -58,7 +54,9 @@ export const CartModal = forwardRef(function CartModal(
               >
                 Close
               </button>
-              <button className="button" onClick={handleCheckout}>Go To Checkout</button>
+              <button className="button" onClick={handleCheckout}>
+                Go To Checkout
+              </button>
             </div>
           </>
         ) : (
@@ -72,7 +70,7 @@ export const CartModal = forwardRef(function CartModal(
           </>
         )}
       </dialog>
-      <CheckoutModal ref={checkoutModalRef}/>
+      <CheckoutModal ref={checkoutModalRef} />
     </Fragment>,
     document.getElementById("modal")
   );
