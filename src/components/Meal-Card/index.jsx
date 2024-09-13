@@ -5,7 +5,7 @@ export const MealCard = (item) => {
   const dispatch = useDispatch();
   return (
     <div sx={{ maxWidth: 345 }} className="meal-item">
-      <img src={`http://localhost:3000/${item.image}`} title={item.name} />
+      <img src={item.image} title={item.name} />
       <div>
         <h3>{item.name}</h3>
         <span className="meal-item-price"> {item.price} </span>

@@ -1,4 +1,4 @@
-const baseUrl="http://localhost:3000"
+const baseUrl="https://buttered-fixed-fiber.glitch.me"
 
 export async function getMeals() {
     try {
