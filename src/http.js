@@ -1,4 +1,4 @@
-const baseUrl="https://buttered-fixed-fiber.glitch.me"
+const baseUrl= import.meta.env.VITE_BASE_URL
 
 export async function getMeals() {
     try {
